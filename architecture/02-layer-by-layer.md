@@ -34,7 +34,7 @@ Tail-sampling cần thấy toàn bộ trace (tất cả spans từ nhiều servi
 
 1. **Filter** — Bỏ health-check endpoints, spans quá ngắn, log level DEBUG
 2. **Enrich** — Inject K8s metadata: namespace, pod, node, deployment, team
-3. **Tail Sampling** — Giữ 100% error/slow traces, bỏ 90% success traces
+3. **Tail Sampling** — Ví dụ giữ 100% error/slow traces, bỏ 90% success traces
 4. **Batch** — Gom 8192 spans/batch, gzip compress trước khi ghi ClickHouse
 
 ---
@@ -46,7 +46,7 @@ Tail-sampling cần thấy toàn bộ trace (tất cả spans từ nhiều servi
 **Tại sao ClickHouse:**
 
 - Columnar storage: observability queries thường scan 1–2 column trên hàng triệu rows → columnar nhanh hơn row-based 5–30x
-- ZSTD compression: 8–10x với observability data
+- ZSTD compression:nén dữ liệu xuống 8–10x với observability data
 - Materialized View: tự động tính metrics incremental từ traces — không cần pre-aggregate ở application
 
 **otel_metrics là Materialized View, không phải table:**
@@ -78,6 +78,5 @@ Workflow: search theo `user.id` hoặc `error.type` → thấy trace → click s
 
 **Grafana** = dùng cho dashboard thường ngày, set alert rule cho những thứ đã biết cần monitor (known-knowns).
 
-Lợi thế: dashboard cũ từ Prometheus vẫn chạy, chỉ cần đổi datasource sang ClickHouse. Không cần viết lại.
 
-**Slack / PagerDuty** = routing alert. P1 → PagerDuty wake on-call. P2 → Slack channel. AI summary từ L4 đính kèm để on-call có context ngay mà không cần vào HyperDX trước.
+**Slack** = routing alert → Slack channel. AI summary từ L4 đính kèm để on-call có context ngay mà không cần vào HyperDX trước.

@@ -3,7 +3,6 @@
 > **Mục tiêu:** Mỗi service emit wide events đúng chuẩn để team có thể debug toàn bộ request flow từ HyperDX mà không cần nhảy giữa nhiều tool.
 >
 > **Thời gian setup:** ~30 phút per service.  
-> Mọi câu hỏi về kiến trúc tổng thể: Slack `#observability`
 
 ---
 
@@ -35,13 +34,13 @@ Mỗi request → 1 span duy nhất chứa toàn bộ context. Không phải log
 - Ghi `db.statement`, `db.system` khi query database
 - Link frontend trace với backend trace qua `trace_id`
 
-**3. Bạn chỉ cần thêm business context**
+**3. Chỉ cần thêm business context**
 
-SDK không biết `user.id` hay `order.id` là gì — bạn phải tự thêm vào span. Đây là phần duy nhất cần code thủ công.
+SDK không biết `user.id` hay `order.id` là gì — phải tự thêm vào span. Đây là phần duy nhất cần code thủ công.
 
 ---
 
-## Chọn ngôn ngữ của bạn
+## Chọn ngôn ngữ 
 
 - [Node.js (Express / Fastify / NestJS)](#nodejs)
 - [Python (FastAPI / Django / Flask)](#python)

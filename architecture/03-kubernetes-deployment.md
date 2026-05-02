@@ -1,7 +1,7 @@
 # Kubernetes Deployment — Sizing & Cấu hình
 
 > Tài liệu này dành cho DevOps / Platform team.  
-> Sizing cho quy mô **10–100 GB observability data / ngày**, K8s self-hosted.
+> Ví dụ Sizing cho quy mô **10–100 GB observability data / ngày**, K8s self-hosted.
 
 ---
 

@@ -1,8 +1,5 @@
 # Quy tắc đặt tên Attribute
 
-> Tài liệu ngắn — chỉ cần đọc một lần, ghi nhớ 3 quy tắc.
-
----
 
 ## 3 quy tắc cốt lõi
 

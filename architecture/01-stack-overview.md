@@ -1,7 +1,5 @@
 # Kiến trúc tổng quan
 
-> Mô tả chi tiết từng tầng của stack Observability 2.0.  
-> Xem diagram trực quan: `obs2_architecture.html` hoặc `obs2_architecture.excalidraw`
 
 ---
 

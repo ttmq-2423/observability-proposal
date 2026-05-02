@@ -1,15 +1,14 @@
 # Observability 2.0 — Đề xuất kiến trúc giám sát thế hệ mới
 
 > Tài liệu này trình bày toàn bộ chiến lược chuyển đổi sang Observability 2.0:  
-> từ **tư duy**, **kiến trúc**, **chuẩn dữ liệu**, đến **hướng dẫn triển khai** cho từng developer.
+> từ **tư duy**, **kiến trúc**, **chuẩn dữ liệu**, đến **hướng dẫn triển khai**.
 
 ---
 
 ## Đọc theo thứ tự này
+Đọc `docs/` và `architecture/` trước để hiểu được chiến lược Observability 2.0.
 
-Nếu bạn là **kỹ sư muốn hiểu tổng quan** → đọc theo thứ tự từ trên xuống.  
-Nếu bạn là **developer cần bắt tay làm ngay** → nhảy thẳng đến `guides/`.  
-Nếu bạn là **tech lead / architect** → đọc `docs/` và `architecture/` trước.
+
 
 ```
 📁 observability-proposal/
@@ -46,7 +45,7 @@ Nếu bạn là **tech lead / architect** → đọc `docs/` và `architecture/`
 
 ---
 
-## Tóm tắt 1 trang — Observability 2.0 là gì
+## Tóm tắt  — Observability 2.0 là gì
 
 ### Vấn đề của cách làm cũ (Obs 1.0)
 

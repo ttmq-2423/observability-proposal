@@ -1,9 +1,7 @@
 # Wide Event Standard — Chuẩn chung cho toàn bộ team
 
 > **Version:** 1.0  
-> **Status:** Draft — cần review và sign-off từ tech leads trước khi enforce  
-> **Owner:** Platform / Observability team  
-> **Áp dụng từ:** Mọi service mới và service đang refactor
+> **Status:** Draft
 
 ---
 
@@ -150,7 +148,7 @@ Thêm vào cuối mỗi handler — sau khi biết kết quả.
 
 ### 3.3 Error context
 
-Thêm khi có lỗi xảy ra. SDK tự ghi `exception.message` và `exception.stacktrace` — bạn chỉ cần thêm context business.
+Thêm khi có lỗi xảy ra. SDK tự ghi `exception.message` và `exception.stacktrace` — chỉ cần thêm context business.
 
 | Attribute | Type | Required | Ví dụ |
 |---|---|---|---|
@@ -402,7 +400,7 @@ attributes:
 
 ## Validation — tự kiểm tra span của mình
 
-Sau khi implement, chạy query sau trên ClickHouse để kiểm tra span của service bạn đã đủ chuẩn chưa:
+Sau khi implement, chạy query sau trên ClickHouse để kiểm tra span của service đã đủ chuẩn chưa:
 
 ```sql
 -- Kiểm tra các attribute bắt buộc có đủ không
@@ -433,31 +431,13 @@ GROUP BY service_name
 
 ## Lộ trình áp dụng
 
-| Giai đoạn | Thời gian | Nội dung |
-|---|---|---|
-| **Phase 1** | Tuần 1–2 | Setup SDK, emit span cơ bản. Kiểm tra span xuất hiện trong ClickHouse. |
-| **Phase 2** | Tuần 3–4 | Thêm business context (user.id, entity ID, outcome). Chạy validation query. |
-| **Phase 3** | Tháng 2 | Định nghĩa domain-specific attributes cho từng team. Review chéo. |
-| **Phase 4** | Tháng 3+ | Enforce qua CI — PR fail nếu service thiếu required attributes. |
+| Giai đoạn | Nội dung |
+|---|---|
+| **Phase 1** | Setup SDK, emit span cơ bản. Kiểm tra span xuất hiện trong ClickHouse. |
+| **Phase 2** | Thêm business context (user.id, entity ID, outcome). Chạy validation query. |
+| **Phase 3** | Định nghĩa domain-specific attributes cho từng team. Review chéo. |
+| **Phase 4** | Enforce qua CI — PR fail nếu service thiếu required attributes. |
 
----
-
-## FAQ
-
-**Q: Service không có user (internal job, cron) thì `user.id` để gì?**  
-A: Bỏ qua `user.id`. Field này chỉ required khi span thực sự gắn với một user. Cron và internal job không cần.
-
-**Q: Attribute mới phát sinh trong quá trình phát triển — cần làm gì?**  
-A: Thêm vào file `docs/wide-event-domain-<team>.md` của team, thông báo vào `#observability`. Không cần approval nếu tuân thủ quy tắc đặt tên.
-
-**Q: Có tool nào validate tự động không?**  
-A: Hiện tại là manual query ClickHouse (xem phần Validation). Phase 4 sẽ có CI check tự động.
-
-**Q: Có thể dùng nested object không? Ví dụ `user: { id: "99", plan: "premium" }`?**  
-A: Không. OTel attribute là flat key-value. Dùng `user.id` và `user.plan` riêng biệt.
-
-**Q: Float hay int cho tiền?**  
-A: Float, đơn vị là đồng tiền nhỏ nhất (VND, cent...). Ví dụ: 250,000 VND = `250000.0`.
 
 ---
 
