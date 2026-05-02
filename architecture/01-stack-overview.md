@@ -7,51 +7,7 @@
 
 ## Sơ đồ tổng thể
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Kubernetes cluster (self-hosted)                            │
-│                                                              │
-│  L1 — Instrumentation (namespace: apps)                     │
-│  ┌──────────┬──────────┬──────────┬──────────┬───────────┐  │
-│  │ Http API │  Worker  │ Frontend │  Nginx/  │    K8s    │  │
-│  │ OTel SDK │ OTel SDK │ HyperDX  │  Redis   │ kube-     │  │
-│  │          │          │ RUM SDK  │  filelog │ state-    │  │
-│  │wide event│wide event│session   │infra log │ metrics   │  │
-│  └──────────┴──────────┴──────────┴──────────┴───────────┘  │
-│        │                                                      │
-│        ▼  OTLP/gRPC                                          │
-│  L2 — OTel Collector (namespace: observability)             │
-│  ┌────────────────────────────────────────────────────────┐  │
-│  │ Agent (DaemonSet)  →  Gateway (Deployment × 3)        │  │
-│  │ filter → enrich → tail-sampling → batch               │  │
-│  └────────────────────────────────────────────────────────┘  │
-│        │                                                      │
-│        ▼  OTLP/HTTP                                          │
-│  L3 — ClickHouse (single source of truth)                   │
-│  ┌───────────────┬─────────────┬───────────────────────────┐ │
-│  │  otel_traces  │  otel_logs  │  otel_metrics (MV)        │ │
-│  │  (wide events)│ (infra log) │  (derived từ traces)      │ │
-│  └───────────────┴─────────────┴───────────────────────────┘ │
-│  ┌───────────────────────┬─────────────────────────────────┐  │
-│  │  Hot tier (SSD 0-30d) │  Cold tier (MinIO >30d)        │  │
-│  └───────────────────────┴─────────────────────────────────┘  │
-│        │                                                      │
-│        ▼                                                      │
-│  L4 — AI Analysis (optional, async)                         │
-│  ┌──────────────┬──────────────┬──────────┬────────────────┐ │
-│  │  Anomaly     │  Root Cause  │   Log    │   SLO Burn     │ │
-│  │  Detection   │     AI       │ Cluster  │     Rate       │ │
-│  └──────────────┴──────────────┴──────────┴────────────────┘ │
-│        │                                                      │
-│        ▼                                                      │
-│  L5 — Visualization (namespace: monitoring)                 │
-│  ┌──────────────┬──────────────────────┬────────────────────┐│
-│  │   HyperDX    │  Grafana + ClickHouse│  Slack/PagerDuty  ││
-│  │  (debug,     │  plugin (dashboard,  │  (P1/P2 alert)    ││
-│  │   explore)   │   alerting)          │                   ││
-│  └──────────────┴──────────────────────┴────────────────────┘│
-└─────────────────────────────────────────────────────────────┘
-```
+![Observability architecture](Observability-architecture.png)
 
 ---
 
