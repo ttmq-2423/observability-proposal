@@ -95,18 +95,12 @@ Từ 1 record này có thể derive ra metrics, logs, traces — không cần 3 
 | Dashboard | Grafana | Dashboard thường ngày, alerting |
 | Alerting | Slack / PagerDuty | P1/P2 notification |
 
-### Lợi ích đo được
-
-- Debug từ symptom → root cause: từ **30–60 phút** xuống **< 5 phút**
-- Số tool cần học: từ **5–7 tool** xuống **2 tool** (HyperDX + Grafana)
-- Chi phí storage: giảm ~**60–70%** nhờ ZSTD compression của ClickHouse
-- Onboarding engineer mới: từ **1–2 tuần** học tool xuống **vài giờ**
 
 ---
 
-## Điểm khác biệt với kiến trúc cũ
+## Điểm khác biệt với kiến trúc Obs 1.0
 
-| | Obs 1.0 (hiện tại) | Obs 2.0 (đề xuất) |
+| | Obs 1.0 | Obs 2.0  |
 |---|---|---|
 | Data model | 3 silo riêng biệt | 1 wide event duy nhất |
 | Metrics | Emit từ application code | Derive tự động từ traces |
@@ -116,21 +110,6 @@ Từ 1 record này có thể derive ra metrics, logs, traces — không cần 3 
 | Session replay | Không có | HyperDX RUM SDK |
 | AI analysis | Không có | Anomaly detection + root cause |
 
----
-
-## Bắt đầu từ đâu
-
-**Nếu bạn muốn hiểu tư duy trước:**  
-→ Đọc [`docs/01-why-observability-2.0.md`](docs/01-why-observability-2.0.md)
-
-**Nếu bạn muốn xem kiến trúc:**  
-→ Đọc [`architecture/01-stack-overview.md`](architecture/01-stack-overview.md)
-
-**Nếu bạn là dev và muốn bắt tay làm ngay:**  
-→ Chọn ngôn ngữ trong [`guides/`](guides/)
-
-**Nếu bạn muốn biết cần viết code gì:**  
-→ Đọc [`standards/01-wide-event-spec.md`](standards/01-wide-event-spec.md)
 
 ---
 
